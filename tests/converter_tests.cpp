@@ -13,6 +13,8 @@ TEST(Converter, CsvToJson) {
     ASSERT_EQ(result.size(), 2u);
     EXPECT_EQ(result[0]["name"], "Eva");
     EXPECT_EQ(result[1]["age"], "55"); // CSV values are strings by contract.
+    // Контролируемая ошибка для эксперимента fail-fast (лабораторная, часть 4)
+    EXPECT_TRUE(false) << "intentional fail-fast experiment";
 }
 
 TEST(Converter, CsvQuotedComma) {
