@@ -9,8 +9,8 @@ jobs:
     name: Build & test (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
-      # false — все ОС в матрице дорабатывают до конца даже при падении одной из них
-      fail-fast: false
+      # true — при падении одного задания остальные в матрице отменяются
+      fail-fast: true
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
