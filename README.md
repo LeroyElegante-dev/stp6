@@ -1,28 +1,37 @@
-# DataConverter — учебный проект для лабораторной по CI/CD
+# Лабораторная 8 — Стоп-кадр (расширение сервиса)
 
-DataConverter — CLI-утилита на C++17 для конвертации табличных данных между CSV, JSON и YAML.
+Ветка содержит **патч лабы 8** поверх проекта «Стоп-кадр» (лаба 7 ODB/FLTK):
+UI, `service.h`, `assignment.hxx` и `src/service_lab8.cpp` с реализацией методов.
 
-## Сборка и тесты
+## Что реализовано в `service_lab8.cpp`
+
+Готовые образцы: `searchAssets`, `listAssetsPaged`, `assetHistory`, `employeeAssets`.
+
+Сделаны TODO:
+- `duplicateAsset` — копирование техники
+- `issueMultiple` — массовая выдача в одной транзакции
+- `reassignAsset` — смена фотографа без возврата в стойку
+- `deleteAssetCascade` — удаление техники вместе с историей выдач
+
+## Как применить к полному проекту
+
+1. Возьмите свой проект Stopkadr после лабы 7.
+2. Скопируйте файлы из этой ветки поверх него (как в задании патча).
+3. Пересоберите:
 
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build --parallel
-ctest --test-dir build --output-on-failure
+cmake --build build -j
 ```
 
-Запуск приложения:
+## Проверка в UI (вкладка «Техника»)
 
-```bash
-./build/dataconv examples/people.csv people.json
-```
+| Кнопка | Метод |
+|--------|--------|
+| Копировать | `duplicateAsset` |
+| Выдать несколько | `issueMultiple` |
+| Сменить | `reassignAsset` |
+| Удалить | `deleteAssetCascade` |
+| Поиск / ◀▶ / История | уже были в патче |
 
-## CI
-
-Конвейер GitHub Actions: `.github/workflows/ci.yml`
-
-- триггеры: `push`, `pull_request`
-- матрица ОС: Ubuntu, macOS, Windows (`fail-fast: false`)
-- кэш FetchContent-зависимостей
-- артефакты: JUnit-отчёт тестов и бинарник
-
-Подробный отчёт по лабораторной: [LAB.md](LAB.md)
+Проверки из задания: уникальный инв. номер; откат массовой выдачи при занятой единице; смена фотографа даёт 2 записи в истории; удаление свободной единицы чистит `assignments`.
