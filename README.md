@@ -1,28 +1,21 @@
-# DataConverter — учебный проект для лабораторной по CI/CD
+# Лабораторная 7 — обработка изображений
 
-DataConverter — CLI-утилита на C++17 для конвертации табличных данных между CSV, JSON и YAML.
+Консольная утилита: grayscale / invert, последовательный и параллельный режимы (`std::thread`, `std::mutex`, `std::queue`).
 
-## Сборка и тесты
+## Сборка
 
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel
-ctest --test-dir build --output-on-failure
 ```
 
-Запуск приложения:
+## Запуск
 
 ```bash
-./build/dataconv examples/people.csv people.json
+./build/image_processor
+# Windows: build\image_processor.exe
 ```
 
-## CI
+Ввод: входная директория → выходная → операция (1–3) → режим (1–2) → число потоков (если parallel).
 
-Конвейер GitHub Actions: `.github/workflows/ci.yml`
-
-- триггеры: `push`, `pull_request`
-- матрица ОС: Ubuntu, macOS, Windows (`fail-fast: false`)
-- кэш FetchContent-зависимостей
-- артефакты: JUnit-отчёт тестов и бинарник
-
-Подробный отчёт по лабораторной: [LAB.md](LAB.md)
+Выходные файлы: `<имя>.processed.png` в выходной директории.

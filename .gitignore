@@ -1,8 +1,4 @@
 build/
 cmake-build-*/
-.vcpkg/
-vcpkg_installed/
-*.csv.tmp
-*.json.tmp
-*.yaml.tmp
-*.yml.tmp
+processed/
+*.tmp
