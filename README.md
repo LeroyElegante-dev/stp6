@@ -1,28 +1,31 @@
-# DataConverter — учебный проект для лабораторной по CI/CD
+# Лабораторные 7 и 8 (одна ветка)
 
-DataConverter — CLI-утилита на C++17 для конвертации табличных данных между CSV, JSON и YAML.
+Репозиторий: ветка `lab7-8`.
 
-## Сборка и тесты
+```
+lab7/   — обработка изображений (threads / mutex / queue)
+lab8/   — патч «Стоп-кадр» + service_lab8.cpp
+```
+
+## Лаба 7 — запуск одной командой
 
 ```bash
+cd lab7
+./run.sh
+```
+
+Или вручную:
+```bash
+cd lab7
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel
-ctest --test-dir build --output-on-failure
+./build/image_processor.exe
+# input: ./images   output: ./processed
 ```
 
-Запуск приложения:
+## Лаба 8 — патч к Stopkadr
 
-```bash
-./build/dataconv examples/people.csv people.json
-```
+В `lab8/` лежит патч (UI + `service_lab8.cpp` с реализованными TODO).  
+Чтобы проверить GUI, скопируйте содержимое `lab8/` **поверх** своего проекта Stopkadr после лабы 7 (ODB/FLTK), затем пересоберите тот проект.
 
-## CI
-
-Конвейер GitHub Actions: `.github/workflows/ci.yml`
-
-- триггеры: `push`, `pull_request`
-- матрица ОС: Ubuntu, macOS, Windows (`fail-fast: false`)
-- кэш FetchContent-зависимостей
-- артефакты: JUnit-отчёт тестов и бинарник
-
-Подробный отчёт по лабораторной: [LAB.md](LAB.md)
+Полного Stopkadr в этом репозитории нет — только патч и реализация методов лабы 8.
